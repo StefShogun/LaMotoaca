@@ -1,13 +1,344 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<style>
+
+    .map-container-5{
+        overflow:hidden;
+        padding-bottom:56.25%;
+        position:relative;
+        height:0;
+    }
+    .map-container-5 iframe{
+        left:0;
+        top:0;
+        height:100%;
+        width:100%;
+        position:absolute;
+    }
+
+
+    #brand-image
+    {
+        height: 60px;
+    }
+
+
+
+    /* The footer is fixed to the bottom of the page */
+
+    footer{
+            bottom: 0;
+    }
+
+    @media (max-height:800px){
+        footer { position: static; }
+        header { padding-top:40px; }
+    }
+
+    .navbar-brand{
+        color:  #e0ac1c;;
+    }
+
+    .footer-distributed{
+        background-color: #2c292f;
+        box-sizing: border-box;
+        width: 100%;
+        text-align: left;
+        font: bold 16px sans-serif;
+        padding: 50px 50px 60px 50px;
+        margin-top: 80px;
+    }
+
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right{
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    /* Footer left */
+
+    .footer-distributed .footer-left{
+        width: 30%;
+    }
+
+    .footer-distributed h3{
+        color:  #ffffff;
+        font: normal 36px 'Cookie', cursive;
+        margin: 0;
+    }
+
+    /* The company logo */
+
+    .footer-distributed .footer-left img{
+        width: 30%;
+    }
+
+    .footer-distributed h3 span{
+        color:  #e0ac1c;
+    }
+
+    /* Footer links */
+
+    .footer-distributed .footer-links{
+        color:  #ffffff;
+        margin: 20px 0 12px;
+    }
+
+    .footer-distributed .footer-links a{
+        display:inline-block;
+        line-height: 1.8;
+        text-decoration: none;
+        color:  inherit;
+    }
+
+    .footer-distributed .footer-company-name{
+        color:  #8f9296;
+        font-size: 14px;
+        font-weight: normal;
+        margin: 0;
+    }
+
+    /* Footer Center */
+
+    .footer-distributed .footer-center{
+        width: 35%;
+    }
+
+
+    .footer-distributed .footer-center i{
+        background-color:  #33383b;
+        color: #ffffff;
+        font-size: 25px;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 42px;
+        margin: 10px 15px;
+        vertical-align: middle;
+    }
+
+    .footer-distributed .footer-center i.fa-envelope{
+        font-size: 17px;
+        line-height: 38px;
+    }
+
+    .footer-distributed .footer-center p{
+        display: inline-block;
+        color: #ffffff;
+        vertical-align: middle;
+        margin:0;
+    }
+
+    .footer-distributed .footer-center p span{
+        display:block;
+        font-weight: normal;
+        font-size:14px;
+        line-height:2;
+    }
+
+    .footer-distributed .footer-center p a{
+        color:  #e0ac1c;
+        text-decoration: none;;
+    }
+
+
+    /* Footer Right */
+
+    .footer-distributed .footer-right{
+        width: 30%;
+    }
+
+    .footer-distributed .footer-company-about{
+        line-height: 20px;
+        color:  #92999f;
+        font-size: 13px;
+        font-weight: normal;
+        margin: 0;
+    }
+
+    .footer-distributed .footer-company-about span{
+        display: block;
+        color:  #ffffff;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .footer-distributed .footer-icons{
+        margin-top: 25px;
+    }
+
+    .footer-distributed .footer-icons a{
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+        background-color:  #33383b;
+        border-radius: 2px;
+
+        font-size: 20px;
+        color: #ffffff;
+        text-align: center;
+        line-height: 35px;
+
+        margin-right: 3px;
+        margin-bottom: 5px;
+    }
+
+
+</style>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+    {% endblock %}
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{{ asset('bundles/app/css/style.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+<header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #2c292f">
+        <a class="navbar-brand" style="color: #e0ac1c; font: bold 20px sans-serif"><i>"La Motoaca"</i></a>
+        <img id = "brand-image" alt="website_logo" src="https://scontent.fotp3-1.fna.fbcdn.net/v/t1.0-9/p960x960/92468651_107703964228873_3934734546204884992_o.jpg?_nc_cat=107&_nc_sid=85a577&_nc_ohc=T3iiE6VA4AMAX8xUq4u&_nc_ht=scontent.fotp3-1.fna&_nc_tp=6&oh=0f5edc66aba0751840141cbc37a32fa2&oe=5ECCB40B"/>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" style="color: white">
+                <li class="nav-item active">
+                    <a class="nav-link"  style="color: white" href="/">
+                        <i class="fa fa-home" style="color: white" aria-hidden="false"></i>
+                        Acasa <span class="sr-only" style="color: white">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown" style="background-color: #2c292f">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" style="color: white" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-cutlery" style="color: white" aria-hidden="false"></i> Ce sa fie? </a>
+                    <div class="dropdown-menu"  style="background-color: #2c292f" aria-labelledby="navbarDropdown">
+                        <ul class="navbar-nav" style=" background-color: #2c292f" >
+                            {% for category in categories %}
+                                <li><a class="dropdown-item" style="color: white; background-color: #2c292f" href="{{ path('category', {'id':category.id})  }}">{{category.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% block header %}
+                        {% endblock %}
+                    </div>
+                </li>
+                <li class="nav-item"  style="color: white">
+                    <a class="nav-link" style="color: white" href="{{ path('contact')}}" tabindex="-1" aria-disabled="true">
+                        <i class="fa fa-envelope" aria-hidden="true"></i> Contact </a>
+                </li>
+                <li class="nav-item" style="color: white">
+                    <a class="nav-link" style="color: white" href="#" tabindex="-1" aria-disabled="true">
+                        <i class="fa fa-user" aria-hidden="true"></i> Logare </a>
+                </li>
+                <li class="nav-item" style="color: white">
+                    <a class="nav-link" style="color: white" href="{{ path('app_cart_showcart') }}" tabindex="-1" aria-disabled="true">
+                    <i class="fa fa-cart-plus" aria-hidden="true"></i> Cos de cumparaturi </a>
+                </li>
+
+
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" style="color: white" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <section class="container-lg">
+        {% block carousel %}
+        {% endblock %}
+    </section>
+</header>
+<main class="container-lg">
+
+
+
+
+                {% block body %}
+
+
+                    <p id="w3mission" rows="4" cols="50">
+                    <h1>"Fiecare pescar are peștele lui"</h1>
+                    <h2><i> Nea Motoaca </i></h2>
+                        Gustul unui pește sălbatic nu are nimic din gustul unui pește de acvacultură. Bogăția de nuanțe, tăria lor, persistența aromei și textura aparte fac din fiecare produs o comoară în sine. Iar dacă pescarilor din vremea lui Hristos li s-a poruncit să meargă și să se facă pescari de oameni, cu nimic mai prejos sunt azi pescarii profesioniști cărora le datorăm cu toții experiențele culinare unice disponibile în pescăria Regatul Sălbatic. Nu-i vorbă că fiecare are povestea lui și uneori poveștile pescărești sunt cele mai autentice povești de viață. La fel, cu arome, nuanțe, gusturi și tării particulare ce fac din experiența gastronomică pe care o susțin, o realitate palpabilă și de neînlocuit. Și dacă fiecare pescar are peștele lui și fiecare pește are gustul lui. Merită ca orice gurmand să încerce măcar odată să facă diferența dintre peștele sălbatic și restul peștilor. Nu de alta dar riscă fără experiența asta să fi trăit o viață fără să cunoască gustul real al peștelui din Dunăre.</p>
+                    <div class="media mb-8">
+
+                        <div class="card mb-10" >
+                            <div class="card-header">
+                                Quote
+                            </div>
+                            <div class="card-body mb-10" >
+                                <blockquote class="blockquote mb-8" >
+                                    <p>"E belea, mananci de mori!!!" </p>
+                                    <footer class="blockquote-footer">- Nea Motoaca (pescar, poet, filozof)</footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                        <div class="video" style="margin: 0 auto">
+                            <iframe  src='http://stiri.tvr.ro/embed.php?video_id=212403' width='600' height='480' scrolling='no' frameborder='0' ></iframe>
+                        </div>
+                    </div>
+                    <section class="container">
+                    </section>
+{% endblock %}
+
+</main>
+<footer class="footer-distributed">
+
+<div class="footer-left">
+    <img src="https://scontent.fotp3-1.fna.fbcdn.net/v/t1.0-9/p960x960/92468651_107703964228873_3934734546204884992_o.jpg?_nc_cat=107&_nc_sid=85a577&_nc_ohc=T3iiE6VA4AMAX8xUq4u&_nc_ht=scontent.fotp3-1.fna&_nc_tp=6&oh=0f5edc66aba0751840141cbc37a32fa2&oe=5ECCB40B">
+    <h3><span><i>"La Motoaca"</i></span></h3>
+
+    <p class="footer-links">
+        <a href="#">Acasa</a>
+        |
+        <a href="#">Produse</a>
+        |
+        <a href="#">Contact</a>
+    </p>
+
+    <p class="footer-company-name">© 2020 <i>"La Motoaca"</i> S.R.L.</p>
+</div>
+
+<div class="footer-center">
+    <div>
+        <i class="fa fa-map-marker"></i>
+        <p><span>Fetesti, judetul Ialomita,
+						 strada: Tudor Vladimirescu, nr.3</span></p>
+    </div>
+    <div>
+        <i class="fa fa-phone"></i>
+        <p>+40 763677575</p>
+    </div>
+    <div>
+        <i class="fa fa-envelope"></i>
+        <p><a href="mailto:alex.motoaca@yahoo.com">alex.motoaca@yahoo.com</a></p>
+    </div>
+</div>
+    <div class="footer-right">
+        <p class="footer-company-about">
+            <span>Despre noi</span>
+            Pescari din tata in fiu, am ales sa impartasim recolta noastra de peste cu voi</p>
+        <div class="footer-icons">
+            <a href="https://www.facebook.com/pescarieregatulsalbaticlamotoaca"><i class="fa fa-facebook"></i></a>
+            <a href="https://www.instagram.com/cristea.marian.370"><i class="fa fa-instagram"></i></a>
+        </div>
+    </div>
+
+    </footer>
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="{{ asset('bundles/app/js/main.js') }}" type="text/javascript"></script>
+{% endblock %}
+</body>
 </html>

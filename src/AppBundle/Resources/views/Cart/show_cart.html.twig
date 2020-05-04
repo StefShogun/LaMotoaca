@@ -1,0 +1,72 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}<h1>Doar atat?</h1>{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-12 mt-4">
+            <h4>Sacul tau cu peste:</h4>
+        </div>
+    </div>
+    <div class="col-lg-8">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Produs</th>
+            <th scope="col">Pret</th>
+            <th scope="col">Cantitate</th>
+            <th colspan="2" width="10%">Mai pune/Mai scade</th>
+            <th colspan="col">Stergere produs</th>
+            <th colspan="col">Suma</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set total = 0 %}
+        {% for cartItem in cartItems %}
+            <tr>
+                <th scope="row"></th>
+                <td> <a href ="{{ path('product', {'id':cartItem.product.id}) }}" >{{ cartItem.product.name }}</a></td>
+                <td>{{ cartItem.product.price }}</td>
+                <td><input name="quantity" value="{{ cartItem.quantity }}"></td>
+                <td>
+                    <i class="fa fa-plus-square"></i>
+                </td>
+                <td>
+                   <i class="fa fa-minus-square"></i>
+                </td>
+                <td>
+                    <a href="{{ path("app_cart_removefromcart", {id:cartItem.id}) }} "class="text-danger"><i class="fa fa-times"></i></a>
+                </td>
+                <td>
+                    {{ cartItem.product.price * cartItem.quantity }}
+                </td>
+            </tr>
+            {% set total = total+cartItem.product.price * cartItem.quantity %}
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="7">Tinere, ai de plata...</th>
+                <th> {{ total }}</th>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+    <div class="row">
+        <div class="col-12 mb-4">
+            <button class="btn btn-outline-info"><i class="fa fa-arrow-left"></i><a href="{{ path('home') }}" style="color: lightseagreen"> Pagina principala </a></button>
+            <button class="btn btn-outline-info"> Batem palma? <i class="fa fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
